@@ -1,11 +1,10 @@
 ##########################Script to make DNAplotter graphics from .wig expression files###########
 
 ######Combining and comparing hfq and wt sequences##############
-####Documents in Documents/Bioinformatics/DNAplotGraphics/
 ########################################################
 ##Prepair files by simplifying names or change script logic#####
 
-###Trim and rename .wig files##
+###Trim and rename .wig files in active dir
 for i in *.wig; do tail -n +3 $i | awk '{print $1,$2}' > ${i}_count.txt; done
 
 #######Join multiple files into same summery file according to .txt file with one nr per bp in genome (nrFile.txt)
@@ -14,12 +13,12 @@ seq -f %.0f 0 2272360 > nrFile.txt
 #################################################################
 ##########reverse direction files##################
 ####join .wig#####
-join -e0 -a1 -a1 -o0,2.2 nrFile.txt P5004_101_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,2.2 - P5004_104_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,2.2 - P5004_107_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,2.2 - P5004_102_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,2.2 - P5004_105_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,2.2 -  P5004_108_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,2.2 - P5004_103_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,2.2 - P5004_106_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.2 - P5004_109_r.wig_count.txt > datareverse.txt
+join -e0 -a1 -a1 -o0,2.2 nrFile.txt *wig_count.txt | join -e 0 -a 1 -o0,1.2,2.2 - *wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,2.2 - *7_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,2.2 - *2_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,2.2 - *5_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,2.2 -  *8_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,2.2 - *3_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,2.2 - *6_r.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.2 - *9_r.wig_count.txt > datareverse.txt
 ######calc mean#####
 awk '{ print ($2 + $3 + $4)/3, ($5 + $6 + $7)/3 }' datareverse.txt > datareversemean.txt
 
 ############forward direction files##################
-join -e0 -a1 -a1 -o0,2.2 nrFile.txt P5004_101_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,2.2 - P5004_104_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,2.2 - P5004_107_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,2.2 - P5004_102_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,2.2 - P5004_105_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,2.2 -  P5004_108_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,2.2 - P5004_103_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,2.2 - P5004_106_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.2 - P5004_109_f.wig_count.txt > dataforward.txt
+join -e0 -a1 -a1 -o0,2.2 nrFile.txt *1_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,2.2 - *4_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,2.2 - *7_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,2.2 - *2_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,2.2 - *5_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,2.2 -  *8_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,2.2 - *3_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,2.2 - *6_f.wig_count.txt | join -e 0 -a 1 -o0,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,2.2 - *9_f.wig_count.txt > dataforward.txt
 ######calc mean#####
 awk '{ print ($2 + $3 + $4)/3, ($5 + $6 + $7)/3 }' dataforward.txt > dataforwardmean.txt
 
